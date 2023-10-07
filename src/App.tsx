@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import SignupScreen from "./screens/signup.screen";
-import LoginScreen from "./screens/login.screen";
+import SignupScreen from "./screens/signup";
+import LoginScreen from "./screens/login";
+import Dashboard from "./screens/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,8 @@ const router = createBrowserRouter([
   },
   { path: "signup", element: <SignupScreen /> },
   { path: "login", element: <LoginScreen /> },
+  { path: "dashboard", element: <Dashboard /> },
+
 ]);
 
 function App() {

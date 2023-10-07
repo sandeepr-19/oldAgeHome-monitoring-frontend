@@ -9,8 +9,8 @@ function ElderListTile(props: any) {
         className="w-full h-32 object-cover"
       />
       <div className="p-4">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <p className="mt-2 text-gray-600">{description}</p>
+        <h2 className="text-xl font-semibold">{props.title}</h2>
+        <p className="mt-2 text-gray-600">{props.description}</p>
       </div>
     </div>
   );
