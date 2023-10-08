@@ -20,9 +20,9 @@ const Dashboard = () => {
         currentRoute={currentRoute}
         setCurrentRoute={setCurrentRoute}
       />
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col lg:p-5">
         <Header UserDetails={UserDetails} />
-        <div className="w-full">
+        <div className="lg:w-full">
           <DefaultTable
             UserDetails={UserDetails}
             tableHeadData={tableHeadData}
