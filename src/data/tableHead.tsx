@@ -1,1 +1,7 @@
-export const tableHeadData = ["Name", "Job", "Employed", ""];
+export const tableHeadData = [
+  "Name",
+  "Mobile Number",
+  "Guardian",
+  "Guardian Contact",
+  "",
+];

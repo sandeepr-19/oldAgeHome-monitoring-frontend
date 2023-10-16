@@ -1,58 +1,85 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginScreen() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loginUser = async () => {
-    console.log("lg");
-    try {
-      const response = await fetch("http://localhost:3005/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
+  const navigate = useNavigate();
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("accessToken", data.access_token);
-        localStorage.setItem("username", data.username);
-        alert("Login successful");
-      } else {
-        alert("oops! Invalid credentials");
+  const [validationErrors, setValidationErrors] = useState({
+    email: "",
+  });
+
+  const validateForm = () => {
+    let errors: any = {};
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      errors.email = "Invalid email address";
+    }
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const loginUser = async () => {
+    if (validateForm()) {
+      try {
+        const response = await fetch("http://localhost:3005/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem("emp.accessToken", data.access_token);
+          localStorage.setItem("emp.userId", data.userId);
+          alert("Login successful");
+          navigate("/dashboard");
+        } else {
+          alert("oops! Invalid credentials");
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
   return (
     <div className="flex  justify-center">
-      <div className="flex flex-col justify-center mt-10" style={containerStyle}>
-        <div className="flex flex-col p-10" >
-          <p className="font-bold text-xl mb-10">Sign In</p>
-          <div className=" flex flex-col gap-5 items-center w-full">
-            <input
-              type="text"
-              className="rounded-md border-2 p-2 max-w-xl"
-              placeholder="User Name"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-
+      <div
+        className="flex flex-col justify-center mt-10"
+        style={containerStyle}
+      >
+        <div className="flex flex-col p-10">
+          <p className="font-bold text-xl mb-5">Sign In</p>
+          <div className=" flex flex-col gap-3 items-center w-full">
+            <div className="flex flex-col">
+              <input
+                type="text"
+                className="rounded-md border-2 p-2 max-w-xl"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span className="text-red-500 text-xs">
+                {validationErrors.email}
+              </span>
+            </div>
             <input
               type="text"
               className="rounded-md border-2 p-2 max-w-xl"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <p>New User?</p>
-            <a href="/signup" className="text-sm text-blue-500">
-              Signup
-            </a>
+
+            <div>
+              <p>New User?</p>
+              <a href="/signup" className="text-sm text-blue-500">
+                Signup
+              </a>
+            </div>
             <input
               type="button"
               value="Login"

@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ["Home", "Discover", "Store", "Inbox", "Profile"];
+export default ["Dashboard", "Discover", "Create", "Inbox", "Profile"];

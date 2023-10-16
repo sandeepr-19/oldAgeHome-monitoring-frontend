@@ -1,12 +1,15 @@
 import { useState, useCallback, SetStateAction } from "react";
+import { useNavigate } from "react-router-dom";
 
-const useNavigation = () => {
-  const [route, setRoute] = useState("Home");
+const useNavigation = (props: string) => {
+  const navigate = useNavigate();
+  const [route, setRoute] = useState(props);
 
   const selectAction = useCallback(
     (option: SetStateAction<string>) => {
       if (route === option) return;
       setRoute(option);
+      navigate(`/${option}`);
     },
     [route]
   );

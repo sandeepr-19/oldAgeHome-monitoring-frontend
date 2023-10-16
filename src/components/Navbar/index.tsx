@@ -9,13 +9,13 @@ const Navbar = (props: any) => {
     <nav className="hidden md:flex flex-row items-center justify-between px-8 h-18 mt-3 rounded-b-3xl bg-white">
       <span className="text-5xl text-gray-800 ">
         {/* logo here */}
-        <CgMonday /> 
+        <CgMonday />
       </span>
-      <ul className="flex flex-row self-end h-12 mt-5">
+      <ul className="flex flex-row h-12 mt-5 gap-5">
         {navigationData.map((item: any, index: any) => (
           <li
             className={classNames([
-              "w-20 text-gray-400 hover:text-gray-700 cursor-pointer font-medium tracking-wide text-m flex items-start justify-center px-5",
+              "text-gray-400 hover:text-gray-700 cursor-pointer font-medium tracking-wide text-m items-start justify-center",
               currentRoute === item &&
                 "border-b-4 text-gray-700 border-gray-700 bg-gradient-to-b from-white to-gray-100",
             ])}
