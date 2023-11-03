@@ -22,16 +22,19 @@ function LoginScreen() {
   const loginUser = async () => {
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:3005/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        });
+        const response = await fetch(
+          "https://senior-guard-api.vercel.app/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           localStorage.setItem("emp.accessToken", data.access_token);

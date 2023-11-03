@@ -72,15 +72,18 @@ function CreateUser() {
       setValidationErrors(errors);
     } else {
       try {
-        const response = await fetch("http://localhost:3005/elders/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            userId,
-            authorization,
-          },
-          body: JSON.stringify(userDetails),
-        });
+        const response = await fetch(
+          "https://senior-guard-api.vercel.app/elders/create",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              userId,
+              authorization,
+            },
+            body: JSON.stringify(userDetails),
+          }
+        );
         if (response.ok) {
           alert("data added successfully");
         } else {

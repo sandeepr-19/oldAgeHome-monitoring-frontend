@@ -17,14 +17,17 @@ function Dashboard() {
         const userId = localStorage.getItem("emp.userId") as string;
         const authorization = localStorage.getItem("emp.accessToken") as string;
 
-        const response = await fetch("http://localhost:3005/elders", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            userId,
-            authorization,
-          },
-        });
+        const response = await fetch(
+          "https://senior-guard-api.vercel.app/elders",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              userId,
+              authorization,
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           setUserList(data);

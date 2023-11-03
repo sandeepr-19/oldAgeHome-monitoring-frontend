@@ -53,18 +53,21 @@ function SignupScreen() {
   const createUser = async () => {
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:3005/users/createUser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-          }),
-        });
+        const response = await fetch(
+          "https://senior-guard-api.vercel.app/users/createUser",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              firstName,
+              lastName,
+              email,
+              password,
+            }),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
