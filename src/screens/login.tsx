@@ -39,6 +39,36 @@ function LoginScreen() {
           const data = await response.json();
           localStorage.setItem("emp.accessToken", data.access_token);
           localStorage.setItem("emp.userId", data.userId);
+
+          try {
+            const userId = localStorage.getItem("emp.userId") as string;
+            const authorization = localStorage.getItem(
+              "emp.accessToken"
+            ) as string;
+            const fcmToken = localStorage.getItem("emp.fcmToken") as string;
+            const response = await fetch(
+              "https://senior-guard-api.vercel.app/users/updateFcmToken",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  userId,
+                  authorization,
+                },
+                body: JSON.stringify({
+                  fcmToken: fcmToken,
+                }),
+              }
+            );
+            if (response.ok) {
+              console.log("fcm updated");
+            } else {
+              console.error("update fcm failed");
+            }
+          } catch (error) {
+            console.error(error);
+          }
+
           alert("Login successful");
           navigate("/dashboard");
         } else {
