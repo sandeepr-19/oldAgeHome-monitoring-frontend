@@ -97,18 +97,18 @@ function Analytics() {
           setCurrentRoute={setCurrentRoute}
         />
         <div className="mx-5 p-3">
-            <div className="flex flex-row justify-around">
+            <div className="flex flex-row justify-around my-5">
             <div className="w-1/2">
                 <div className="font-semibold text-base">Bottles Filled</div>
                 <BarChart label={dateTimeArray} xData={countArray}/>
             </div>
             <div>
             <div className="font-semibold text-base">Time Taken For Bottles To Fill</div>
-            <Doughnut  labels={["Least Time Taken","Average Time Taken","Most Time Taken"]} data={[3,data.averageTimeTaken,data.mostTimeTaken]}/>
+            <Doughnut  labels={["Least Time Taken","Average Time Taken","Most Time Taken"]} data={[data.leastTimeTaken, Math.round(data.averageTimeTaken),data.mostTimeTaken]}/>
             </div>
             </div>
             
-           <div className="mt-3">
+           <div className="my-7">
            <AnalyticsTable
               AnalyticsDetails={processedData}
               tableHeadData={['Entity','Mertics']}

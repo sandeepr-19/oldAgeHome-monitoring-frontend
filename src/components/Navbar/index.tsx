@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Navbar = (props: any) => {
   const { navigationData, currentRoute, setCurrentRoute } = props;
   return (
-    <nav className="hidden md:flex flex-row items-center justify-between px-8 h-18 mt-3 rounded-b-3xl bg-white">
+    <nav className="hidden md:flex flex-row items-center justify-between px-8 h-18 rounded-b-3xl bg-white">
       <span className="text-5xl text-gray-800 ">
         {/* logo here */}
         <CgMonday />
