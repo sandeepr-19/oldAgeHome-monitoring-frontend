@@ -21,7 +21,7 @@ ChartJS.register(
 );
 
 
-const BarChart =  ({ label, xData }: { label: string[], xData: number[] }) => {
+const BarChart =  ({ label, xData, title,bg }: { label: string[], xData: number[],title:string,bg:string }) => {
   const [chartData, setChartData] = useState(null);
 
    const options = {
@@ -32,7 +32,7 @@ const BarChart =  ({ label, xData }: { label: string[], xData: number[] }) => {
       },
       title: {
         display: true,
-        text: 'Bottles Filled',
+        text:title,
       },
     },
   };
@@ -40,9 +40,9 @@ const BarChart =  ({ label, xData }: { label: string[], xData: number[] }) => {
 const data = {
   labels:label,
   datasets: [{
-    label: 'no of bottles filled',
+    label:title,
     data:xData,
-    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    backgroundColor:bg ,
   }]
 }
   return (

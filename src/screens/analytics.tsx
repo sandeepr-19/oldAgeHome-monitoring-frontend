@@ -16,6 +16,15 @@ interface AnalyticsData {
     mostTimeTaken: number;
     averageTimeTaken: number;
     timeTakenEntities:number,
+    units: {
+      _id: string;
+      date: string;
+      time: string;
+      currentUnits: number;
+      measuredUnits: number;
+      tariff:number;
+      __v: number;
+    }[];highestUnits:number;lowestUnits:number;averageUnits:number;highestTariff:number;lowestTariff:number;averageTariff:number;
     bottleCount: {
       _id: string;
       date: string;
@@ -35,7 +44,8 @@ function Analytics() {
     mostTimeTaken: 0,
     averageTimeTaken: 0,
     bottleCount: [],
-    timeTakenEntities:0
+    timeTakenEntities:0,
+    units:[],highestUnits:0,lowestUnits:0,averageUnits:0,highestTariff:0,lowestTariff:0,averageTariff:0
   });
 
 
@@ -43,7 +53,7 @@ function Analytics() {
     async function fetchAnalyticsData() {
       try {
         const response = await fetch(
-          "https://senior-guard-api.vercel.app/analytics",
+          "http://localhost:3005/analytics",
           {
             method: "GET",
             headers: {
@@ -67,10 +77,18 @@ function Analytics() {
 
   const dateTimeArray: string[] = [];
   const countArray: number[] = [];
-
+  const unitsTimeArray: string[] = [];
+  const unitsArray: number[] = [];
+  const tariffArray: number[] = [];
   data.bottleCount.forEach(({ date, time, count }) => {
     dateTimeArray.push(`${date} ${time}`);
     countArray.push(count);
+  });
+
+  data.units.forEach(({ date, tariff, currentUnits }) => {
+    unitsTimeArray.push(date);
+    unitsArray.push(currentUnits);
+    tariffArray.push(tariff);
   });
 
   const processedData = [
@@ -81,6 +99,12 @@ function Analytics() {
     {key: 'Most no of bottles filled in a minute',data: data.mostSpeed },
     {key: 'Average no of bottles filled in a minute',data:  Math.round(data.averageSpeed) },
     {key: 'No of bottles filled',data: data.bottleCount.length },
+    { key: 'Highest Units recorded so far', data: data.highestUnits },
+    { key: 'Lowest Units recorded so far', data: data.lowestUnits },
+    { key: 'Average Units recorded so far', data:  Math.round(data.averageUnits) },
+    { key: 'Highest Tariff recorded so far', data: data.highestTariff },
+    { key: 'Lowest Tariff recorded so far', data: data.lowestTariff },
+    { key: 'Average Tariff recorded so far', data:  Math.round(data.averageTariff) },
   ];
 
   return (
@@ -97,15 +121,28 @@ function Analytics() {
           setCurrentRoute={setCurrentRoute}
         />
         <div className="mx-5 p-3">
-            <div className="flex flex-row justify-around my-5">
+            <div className="flex flex-wrap justify-around my-5">
             <div className="w-1/2">
                 <div className="font-semibold text-base">Bottles Filled</div>
-                <BarChart label={dateTimeArray} xData={countArray}/>
+                <BarChart label={dateTimeArray} xData={countArray} title={"Bottles filled"} bg={'rgba(53, 162, 235, 0.5)'}/>
             </div>
             <div>
             <div className="font-semibold text-base">Time Taken For Bottles To Fill</div>
             <Doughnut  labels={["Least Time Taken","Average Time Taken","Most Time Taken"]} data={[data.leastTimeTaken, Math.round(data.averageTimeTaken),data.mostTimeTaken]}/>
             </div>
+            <div className="w-1/2">
+                <div className="font-semibold text-base">Units Accumulated</div>
+                <BarChart label={unitsTimeArray} xData={unitsArray} title={"Units"}bg={'rgba(118, 120, 237, 1)'}/>
+            </div>
+            <div>
+            <div className="font-semibold text-base">Tariff</div>
+            <Doughnut  labels={["Lowest Tariff","Average Tariff","Highest Tariff"]} data={[data.lowestTariff, Math.round(data.averageTariff),data.highestTariff]}/>
+            </div>
+            <div className="w-1/2">
+                <div className="font-semibold text-base">Tariff Calculated</div>
+                <BarChart label={unitsTimeArray} xData={tariffArray} title={"Tariff"} bg={'rgba(214, 40, 40, 1)'}/>
+            </div>
+            
             </div>
             
            <div className="my-7">
