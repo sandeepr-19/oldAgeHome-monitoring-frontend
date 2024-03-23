@@ -53,7 +53,7 @@ function Analytics() {
     async function fetchAnalyticsData() {
       try {
         const response = await fetch(
-          "http://localhost:3005/analytics",
+          "https://senior-guard-api.vercel.app/analytics",
           {
             method: "GET",
             headers: {
